@@ -1,0 +1,123 @@
+*{
+	margin : 0;
+	padding : 0;
+	box-sizing : border-box;
+	font-family : 'Poppins';
+}
+
+body{
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	height : 100vh;
+	background-color : #ddd;
+}
+
+.heading{
+	font-size : 40px;
+}
+
+.btn{
+	display : inline-block;
+	background : #ddd;
+	border : none;
+	border-radius : 20px;
+	padding : .5em 4em;
+	font-size : 16px;
+	font-weight : bold;
+	letter-spacing : .5px;
+	cursor : pointer;
+	transition : background .2s ease;
+}
+
+.btn:hover{
+	background-color : #ccc;
+}
+
+.Game{
+	position : relative;
+	height : 500px;
+	width : 500px;
+	background-color : #fff;
+	overflow : hidden;
+}
+
+.topbar{
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	position : absolute;
+	height : 50px;
+	width : 100%;
+	background-color : #ff0000;
+	color : #fff;
+	z-index : 10;
+}
+
+.container{
+	height : 100%;
+	width : 100%;
+}
+
+.start-layer{
+	display : flex;
+	flex-direction : column;
+	align-items : center;
+	justify-content : center;
+	position : absolute;
+	height : inherit;
+	width : inherit;
+}
+
+.preparation-layer{
+	display : flex;
+	align-items : center;
+	justify-content : center;
+	height : 100%;
+	font-size : 3rem;
+	font-weight : bold;
+	letter-spacing : .5px;
+}
+
+.main{
+	height : 100%;
+}
+
+.circle{
+	display : flex;
+	justify-content : center;
+	align-items : center;
+	position : absolute;
+	padding : 50px;
+	border-radius : 50%;
+	z-index : 2;
+	cursor : pointer;
+}
+
+.circle .item{
+	padding : 30px;
+	background-color : red;
+	border-radius : 50%;
+}
+
+.start-layer .heading{
+	margin-bottom : .5em;
+}
+
+.end-layer{
+	display : flex;
+	flex-direction : column;
+	align-items : center;
+	justify-content : center;
+	height : 100%;
+}
+
+.end-layer .score{
+	margin-bottom : .5em;
+	font-size : 2rem;
+	font-weight : bold;
+}
+
+.hide{
+	display : none;
+}
