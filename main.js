@@ -1,3 +1,6 @@
+// Elements that needed
+
+const startLayer = document.querySelector('.start-layer')
 const startBtn = document.querySelector('.start-game-btn');
 const topBar = document.querySelector('.topbar');
 const main = document.querySelector('.main');
@@ -6,41 +9,40 @@ const end = document.querySelector('.end-layer');
 const endScore = end.querySelector('.score');
 const restartBtn = end.querySelector('.btn');
 
+// variable that store the score of the player
 let score = 0;
 
-let time = 0;
+// required for the loop in startGame function, check it below
 let circles = 0;
-let leftTime = 0;
 
-let done = 0;
 
-const minCircle = 40;
-const maxCircle = 80;
+// Randomize the amout of the circle that will be created
+const minCircle = 40; // you can change this if you want to
+const maxCircle = 80; // you can also change this
+
+// variable that store the amount of the circle that will be created
 const randomNumber = randomizeNumber(minCircle, maxCircle);
 
-const interval = 500;
+const interval = 500; // the interval between circles to be created
 
-let circlesTime = 1000;
+let circlesTime = 1000; // to adjust the time when the circle should be appeared
 
-console.log(leftTime);
-console.log(circlesTime);
+// Event listeners
 
-startBtn.addEventListener('click', hideStartLayer);
+// start button listener to start the game
+startBtn.addEventListener('click', startGame);
+
+// restart button listener to restart the game
 restartBtn.addEventListener('click', restartGame);
 
-function hideStartLayer(){
-	this.parentElement.classList.add('hide');
-	setScore();
-	startGame();
-}
 
-function setScore(){
-	topBar.textContent = 'Score = ' + score;
-}
+
+// To start the game
 
 function startGame(){
-	setScore();
+	startLayer.classList.add('hide');
 	prepare();
+	setScore();
 	setTimeout(() => {
 		while(circles < randomNumber){
 			timeout();
@@ -50,6 +52,8 @@ function startGame(){
 	}, circlesTime)
 }
 
+// to restart the game
+
 function restartGame(){
 	circles = 0;
 	circlesTime = 1000;
@@ -57,6 +61,8 @@ function restartGame(){
 	end.classList.add('hide');
 	startGame();
 }
+
+// show the preparation screen
 
 function prepare(){
 	const {
@@ -74,6 +80,14 @@ function prepare(){
 	setTimeout(() => preparation.classList.add('hide'), 1500);
 }
 
+// set the score in the topbar and make it dynamic and increase as the player click it
+
+function setScore(){
+	topBar.textContent = 'Score = ' + score;
+}
+
+// create a circle and also call some functions to randomize the color, randomize the horizontal position, and move it to bottom
+
 function createCircle(){
 
 	const circle = document.createElement('div');
@@ -88,30 +102,23 @@ function createCircle(){
 	return moveCircle(...randomizePosition(randomizeColor(circle)));
 }
 
+// function that return a random number that provided based on the given minimal and maksimal value
 
-function randomizePosition(element){
-	const maxHorizontalPos = main.offsetWidth - 150;
-
-	let horizontalPos = Math.floor(Math.random() * maxHorizontalPos);
-
-	if(horizontalPos < 0 ){
-		horizontalPos = -10;
-	}
-
-	element.style.transform = `translate(${horizontalPos}px, -50px)`;
-
-	return [element, horizontalPos];
+function randomizeNumber(minTime, maxTime){
+	return Math.floor(Math.random() * (maxTime - minTime)) + minTime;
 }
+
+// randomize the color of the circle
 
 function randomizeColor(element){
 	const child = element.firstElementChild;
-	const colors = ['blue', 'orange', 'yellow', 'green', 'salmon'];
+	const colors = ['#ff763f', '#3fc6ff', '#fff43f', '#3fff61', '#ff3ff9'];
 	const color = colors[Math.floor(Math.random() * colors.length)];
 
 	child.style.backgroundColor = color;
 	
 	element.addEventListener('mouseenter', function () {
-		child.style.backgroundColor = 'red';
+		child.style.backgroundColor = '#ff3f3f';
 	})
 
 	element.addEventListener('mouseleave', function () {
@@ -127,9 +134,23 @@ function randomizeColor(element){
 	return element;
 }
 
-function randomizeNumber(minTime, maxTime){
-	return Math.floor(Math.random() * (maxTime - minTime)) + minTime;
+// randomize the horizontal position
+
+function randomizePosition(element){
+	const maxHorizontalPos = main.offsetWidth - 150;
+
+	let horizontalPos = Math.floor(Math.random() * maxHorizontalPos);
+
+	if(horizontalPos < 0 ){
+		horizontalPos = -10;
+	}
+
+	element.style.transform = `translate(${horizontalPos}px, -50px)`;
+
+	return [element, horizontalPos];
 }
+
+// move the circle to bottom
 
 function moveCircle(element, horizontalPos){
 	const maxVerticalPos = main.offsetHeight;
@@ -145,6 +166,8 @@ function moveCircle(element, horizontalPos){
 }
 
 
+// important function that adjust when the circle should be appeared 
+
 function timeout(){
 	setTimeout(() => {
 		done = createCircle();
@@ -152,9 +175,13 @@ function timeout(){
 	circlesTime += interval;
 }
 
+// to end the game when there is no more circle left
+
 function endTheGame(){
 	setTimeout(() => showEnd(), circlesTime + 4000);
 }
+
+// show the result screen
 
 function showEnd(){
 	end.classList.remove('hide');

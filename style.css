@@ -38,7 +38,8 @@ body{
 	position : relative;
 	height : 500px;
 	width : 500px;
-	background-color : #fff;
+	background-color : #4c4c4c;
+	color : white;
 	overflow : hidden;
 }
 
@@ -49,7 +50,7 @@ body{
 	position : absolute;
 	height : 50px;
 	width : 100%;
-	background-color : #ff0000;
+	background-color : #807eff;
 	color : #fff;
 	z-index : 10;
 }
